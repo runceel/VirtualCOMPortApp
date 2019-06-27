@@ -22,7 +22,7 @@
             Grid.Row="0"
             Grid.ColumnSpan="3"
             Text="This sample app is to write / read data to virtual COM port('COM4' and 'COM3') from UWP app." />
-        <Border Grid.Row="1" Visibility="{x:Bind IsAppAvairable, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
+        <Border Grid.Row="1" Visibility="{x:Bind IsAppAvailable, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -36,7 +36,7 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="Writer side" />
-                    <TextBox Grid.Row="1" PlaceholderText="Writing data" Text="{x:Bind WritingData, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Grid.Row="1" PlaceholderText="Sending data" Text="{x:Bind WritingData, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <Button
                         Grid.Row="2"
                         HorizontalAlignment="Stretch"
@@ -62,7 +62,7 @@
                 </Grid>
             </Grid>
         </Border>
-        <Border Grid.Row="1" Visibility="{x:Bind IsAppAvairable, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=true, Mode=OneWay}">
+        <Border Grid.Row="1" Visibility="{x:Bind IsAppAvailable, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=true, Mode=OneWay}">
             <TextBlock HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        Text="The app couldn't find ports COM3 for reading data and COM4 for writing data. Please set up virtual serial port using virutual serial connector app like com0com." />

@@ -32,14 +32,14 @@ namespace VirtualCOMPortApp
 
         public bool IsWritingDataButtonEnabled => !string.IsNullOrEmpty(WritingData);
 
-        private bool _isAppAvairable;
-        public bool IsAppAvairable
+        private bool _isAppAvailable;
+        public bool IsAppAvailable
         {
-            get => _isAppAvairable;
+            get => _isAppAvailable;
             set
             {
-                _isAppAvairable = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsAppAvairable)));
+                _isAppAvailable = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsAppAvailable)));
             }
         }
 
@@ -63,11 +63,11 @@ namespace VirtualCOMPortApp
                 _readerPort = new SerialPort("COM3");
                 _readerPort.Open();
                 _readerPort.DataReceived += ReaderPort_DataReceived;
-                IsAppAvairable = true;
+                IsAppAvailable = true;
             }
             catch
             {
-                IsAppAvairable = false;
+                IsAppAvailable = false;
             }
         }
 
