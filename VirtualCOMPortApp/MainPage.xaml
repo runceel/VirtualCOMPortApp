@@ -21,7 +21,7 @@
         <TextBlock
             Grid.Row="0"
             Grid.ColumnSpan="3"
-            Text="This sample app is to write / read data to virtual COM port('COM4' and 'COM3') from UWP app." />
+            Text="This sample app is to write / read data to virtual COM port from UWP app." />
         <Border Grid.Row="1" Visibility="{x:Bind IsAppAvailable, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -34,11 +34,19 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="Writer side" />
-                    <TextBox Grid.Row="1" PlaceholderText="Sending data" Text="{x:Bind WritingData, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <ComboBox Grid.Row="1" ItemsSource="{x:Bind _portNames}" HorizontalAlignment="Stretch" SelectedItem="{x:Bind WriteTargetPortName, Mode=TwoWay}" />
+                    <Button Content="Connect"
+                            Click="ConnectWriterPortButton_Click"
+                            Grid.Row="2"
+                            HorizontalAlignment="Stretch" />
+                    <TextBox Grid.Row="3"
+                             Text="{x:Bind WritingData, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
                     <Button
-                        Grid.Row="2"
+                        Grid.Row="4"
                         HorizontalAlignment="Stretch"
                         Click="WritingDataButton_Click"
                         Content="Send"
@@ -52,11 +60,18 @@
                 <Grid Grid.Column="2" Margin="10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="Reader side" />
+                    <ComboBox Grid.Row="1" ItemsSource="{x:Bind _portNames}" HorizontalAlignment="Stretch" SelectedItem="{x:Bind ReadTargetPortName, Mode=TwoWay}"/>
+                    <Button Content="Connect"
+                            Click="ConnectReaderPortButton_Click"
+                            Grid.Row="2"
+                            HorizontalAlignment="Stretch" />
                     <ListView
-                        Grid.Row="1"
+                        Grid.Row="3"
                         ItemsSource="{x:Bind ReadedData}"
                         SelectionMode="None" />
                 </Grid>
@@ -65,7 +80,7 @@
         <Border Grid.Row="1" Visibility="{x:Bind IsAppAvailable, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=true, Mode=OneWay}">
             <TextBlock HorizontalAlignment="Center"
                        VerticalAlignment="Center"
-                       Text="The app couldn't find ports COM3 for reading data and COM4 for writing data. Please set up virtual serial port using virutual serial connector app like com0com." />
+                       Text="The app couldn't find COM ports. Please set up virtual serial port using virutual serial connector app like com0com." />
         </Border>
     </Grid>
 </Page>

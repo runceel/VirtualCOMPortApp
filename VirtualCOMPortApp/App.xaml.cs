@@ -5,6 +5,8 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.AppService;
+using Windows.ApplicationModel.Background;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -45,6 +47,7 @@ namespace VirtualCOMPortApp
             // just ensure that the window is active
             if (rootFrame == null)
             {
+                _ = SerialPortService.LaunchWin32AppAsync();
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
 
@@ -95,6 +98,17 @@ namespace VirtualCOMPortApp
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             deferral.Complete();
+        }
+
+        protected override void OnBackgroundActivated(BackgroundActivatedEventArgs args)
+        {
+            base.OnBackgroundActivated(args);
+
+            if (args.TaskInstance.TriggerDetails is AppServiceTriggerDetails)
+            {
+                // set up app service
+                SerialPortService.AcceptAppServiceConnection(args.TaskInstance);
+            }
         }
     }
 }
